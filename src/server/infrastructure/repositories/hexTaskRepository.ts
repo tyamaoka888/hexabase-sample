@@ -106,8 +106,8 @@ export class HexTaskRepository
       // タスクアイテムを作成
       const itemTask = await tasksDS.item();
       await itemTask
-        .setFieldValue("userId", task.userId)
-        .setFieldValue("taskTitle", task.taskTitle)
+        .setFieldValue("user_id", task.userId)
+        .setFieldValue("task_title", task.taskTitle)
         .save();
       // ロールバック用にアイテムを削除するために保存
       this.addRollbackOperation(new DeleteItemRollback(itemTask));
@@ -116,7 +116,7 @@ export class HexTaskRepository
       for (const detail of task.details) {
         const itemTaskDetail = await taskDetailsDS.item();
         await itemTaskDetail
-          .setFieldValue("taskId", itemTask.fields.taskId)
+          .setFieldValue("task_id", itemTask.fields.task_id)
           .setFieldValue("description", detail.description)
           .setFieldValue("notes", detail.notes)
           .save();
